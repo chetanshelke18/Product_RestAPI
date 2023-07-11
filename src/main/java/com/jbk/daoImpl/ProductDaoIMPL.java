@@ -25,6 +25,7 @@ public class ProductDaoIMPL implements ProductDao{
 	public boolean saveProduct(Product product) {
 		boolean isAdded=false;
 		Session session=null;
+		int i=0;
 		try {
 			session = sf.openSession();
 			Transaction transaction = session.beginTransaction();
