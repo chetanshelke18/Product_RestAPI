@@ -53,5 +53,9 @@ public class ProductServiceIMPL implements ProductService  {
 		return dao.updateProduct(product);
 	}
 	
-
+	@Override
+	public  List<Product> getMaxPriceProduct() {
+		
+		return dao.getMaxPriceProduct();
+}
 }

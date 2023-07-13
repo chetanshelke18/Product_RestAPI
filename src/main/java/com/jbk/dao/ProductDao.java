@@ -8,6 +8,8 @@ public interface ProductDao {
 	public Product getProductById(String productId);
 	public List<Product> getAllProducts();
 	public boolean deleteProductById(String productId);
-	public boolean updateProduct(Product product); 
+	public boolean updateProduct(Product product);
+	public List<Product> getMaxPriceProduct();
+	public double getMaxPrice();
 
 }
