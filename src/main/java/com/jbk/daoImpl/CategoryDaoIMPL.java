@@ -25,6 +25,7 @@ public class CategoryDaoIMPL implements CategoryDao{
 	public boolean saveCategory(Category category) {
 		boolean isAdded=false;
 		Session session=null;
+		int i=0;
 		try {
 			session = sf.openSession();
 			Transaction transaction = session.beginTransaction();
