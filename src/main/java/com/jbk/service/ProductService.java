@@ -10,6 +10,11 @@ public interface ProductService {
 	public boolean deleteProductById(String productId);
 	public boolean updateProduct(Product product); 
 	public List<Product> getMaxPriceProduct();
+	public List<Product> sortProductById_ASC();
+	public List<Product> sortProductById_DESC();
+	public double getMaxPrice();
+	public double countSumOfProductPrice();
+	public int getTotalCountOfProducts();
 
 }
  

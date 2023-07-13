@@ -11,5 +11,9 @@ public interface ProductDao {
 	public boolean updateProduct(Product product);
 	public List<Product> getMaxPriceProduct();
 	public double getMaxPrice();
+	public List<Product> sortProductById_ASC();
+	public List<Product> sortProductById_DESC();
+	public double countSumOfProductPrice();
+	public int getTotalCountOfProducts();
 
 }

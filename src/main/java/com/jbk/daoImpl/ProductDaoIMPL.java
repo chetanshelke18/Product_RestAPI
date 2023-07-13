@@ -185,4 +185,86 @@ public class ProductDaoIMPL implements ProductDao{
 			return maxPrice;
 		}
 	}
+	
+	@Override
+	public List<Product>sortProductById_ASC(){
+		Session session =null;
+		List<Product>list=null;
+		try {
+			session =sf.openSession();
+			Criteria criteria =session.createCriteria(Product.class);
+			criteria.addOrder(Order.asc("productId"));
+			list = criteria.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if (session !=null) {
+				session.close();
+			}
+			return list;
+		}
+	}
+	
+	@Override
+	public List<Product>sortProductById_DESC(){
+		Session session =null;
+		List<Product>list=null;
+		try {
+			session =sf.openSession();
+			Criteria criteria =session.createCriteria(Product.class);
+			criteria.addOrder(Order.desc("productId"));
+			list = criteria.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if (session !=null) {
+				session.close();
+			}
+			return list;
+		}
+	}
+	
+	@Override
+	public double countSumOfProductPrice() {
+		Session session =null;
+		List<Double>list=null;
+		double sumOfPrice = 0;
+		try {
+			session =sf.openSession();
+			Criteria criteria =session.createCriteria(Product.class);
+			criteria.setProjection(Projections.sum("productPrice"));
+			list = criteria.list();
+			if(!(list.isEmpty()))
+				sumOfPrice = list.get(0);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		if (session !=null) {
+			session.close();
+		}
+	}
+      return sumOfPrice;
+}
+	@Override
+	public int getTotalCountOfProducts() {
+		Session session =null;
+		List<Integer>list=null;
+		int totalProducts = 0;
+		try {
+			session =sf.openSession();
+			Criteria criteria =session.createCriteria(Product.class);
+			criteria.setProjection(Projections.rowCount());
+			list = criteria.list();
+			if(!list.isEmpty()){
+				totalProducts = list.get(0);
+			}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		if (session !=null) {
+			session.close();
+		}
+		return totalProducts;
+	}
+	}
 }
