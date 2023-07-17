@@ -1,6 +1,14 @@
 package com.jbk.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,26 +22,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.jbk.entity.Product;
+import com.jbk.exception.ResourceAlreadyExistException;
 import com.jbk.service.ProductService;
 
 
 @RestController
-@RequestMapping(value = "/product")
 public class ProductController {
 
 	@Autowired
-	ProductService service;	
+	private ProductService service;	
+	
+	@GetMapping(value = "/product")
+	public String product() {
+	    return "Product";
+	}
 	@PostMapping(value = "/save-product")
-	public ResponseEntity<Boolean> saveProduct(@RequestBody Product product){
+	public ResponseEntity<Boolean> saveProduct(@Valid@RequestBody Product product){
 	
 	boolean isAdded=service.saveProduct(product);
 	if(isAdded) {
 		return new ResponseEntity<Boolean>(isAdded, HttpStatus.CREATED);
 	}else {
 		
-		return new ResponseEntity<Boolean>(isAdded, HttpStatus.ALREADY_REPORTED);
+		throw new ResourceAlreadyExistException("Resource Already Exists");
 	}
 	}     
 	
@@ -136,5 +151,28 @@ public class ProductController {
 			return new ResponseEntity<Integer>(totalProductsCount,HttpStatus.NO_CONTENT);
 		}
      }
+	
+	@PostMapping(value ="/import-sheet")
+	public ResponseEntity<String>importSheet(@RequestParam MultipartFile myFile){
+		String msg=service.upploadSheet(myFile);
+		return ResponseEntity.ok(msg);
+		
+	}
+
+
+@PostMapping(value = "/uploadSheet")
+public ResponseEntity<Map<String, Object>> uploadSheet(@RequestParam CommonsMultipartFile file,
+		HttpSession session) {
+	Map<String, Object> map = service.uploadSheet(file, session);
+	return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+
+}
+
+@GetMapping(value = "/exportToExcel")
+public ResponseEntity<String>exportToExcel(HttpSession session){
+	String path = service.exportToExcel(session);
+	return new ResponseEntity<String>(path,HttpStatus.OK);
+}
+
 }
  

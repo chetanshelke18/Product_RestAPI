@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -15,34 +18,36 @@ public class Product {
 	@Column(unique = true,nullable = false)
 	private String productId;
 	
+	@NotNull(message = "Product Name Is Required")
 	@Column(unique = true,nullable = false)
 	private String productName;
 	
-	@OneToOne
-	private Supplier supplier;
-	
-	@OneToOne
-	private Category category;
 	
 	@Column(nullable = false)
+	@Min(1)
 	private int productQTY;
 	
 	@Column(nullable = false)
+	@Min(1)
 	private double productPrice;
+	
+	@NotNull(message = "ProductType is required")
+	@Column(nullable = false)
+	private String productType;
 
 	public Product() {
 		
 	}
 
-	public Product(String productId, String productName, Supplier supplierId, Category categoryId, int productQTY,
-			double productPrice) {
+	public Product(String productId,  String productName,
+			 int productQTY,  double productPrice,
+			 String productType) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
-		this.supplier = supplier;
-		this.category = category;
 		this.productQTY = productQTY;
 		this.productPrice = productPrice;
+		this.productType = productType;
 	}
 
 	public String getProductId() {
@@ -61,22 +66,6 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public Supplier getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	public int getProductQTY() {
 		return productQTY;
 	}
@@ -93,13 +82,20 @@ public class Product {
 		this.productPrice = productPrice;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", supplier=" + supplier
-				+ ", category=" + category + ", productQTY=" + productQTY + ", productPrice=" + productPrice + "]";
+	public String getProductType() {
+		return productType;
 	}
 
-	
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", productQTY=" + productQTY
+				+ ", productPrice=" + productPrice + ", productType=" + productType + "]";
+	}
+
 	
 	}
 
