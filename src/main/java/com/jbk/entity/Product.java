@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table
+@Table(name= "deployproduct")
 public class Product {
 
 	@Id
