@@ -22,13 +22,12 @@ public class Product {
 	@Column(unique = true,nullable = false)
 	private String productName;
 	
-	
-	@Column(nullable = false)
 	@Min(1)
+	@Column(nullable = false)
 	private int productQTY;
 	
-	@Column(nullable = false)
 	@Min(1)
+	@Column(nullable = false)
 	private double productPrice;
 	
 	@NotNull(message = "ProductType is required")
