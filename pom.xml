@@ -73,11 +73,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.jbk</groupId>
-			<artifactId>Product-API</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 		<dependency>
    			<groupId>commons-fileupload</groupId>
   			<artifactId>commons-fileupload</artifactId>
